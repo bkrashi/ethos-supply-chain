@@ -2,7 +2,7 @@
   "id": "case-tfm-cobalt",
   "title": "Following cobalt from one Congolese mine",
   "question": "Can a company that buys battery cobalt trace it back to the mine, and what should it do with what it finds?",
-  "investigated": "2026-11-23",
+  "investigated": "2026-11-23 (extended 2026-11-24)",
   "investigator": "ETHOS Investigation agent (Claude Opus 5.5 via Sayari MCP + public web sources)",
   "scope_note": "One bounded investigation. It starts at one industrial copper-cobalt mine and follows the documented trail as far as evidence allows. It does not map the cobalt industry, and it does not claim that any specific phone or battery contains this cobalt.",
   "licensing_note": "Sayari data is licensed. Raw Sayari records, identifiers and counts are kept in a local, git-ignored cache and are not republished here. Public statements below are supported by public sources; where Sayari corroborates them, this is noted without reproducing the records.",
@@ -75,9 +75,43 @@
       "short": "IXM"
     },
     {
+      "id": "brunp",
+      "name": "BRUNP (CATL subsidiary)",
+      "short": "BRUNP",
+      "role": "Battery recycling and materials company, majority-owned by CATL",
+      "stage": "refining",
+      "place": "Foshan, Guangdong, China",
+      "lat": 23.02,
+      "lon": 113.12,
+      "status": "reported",
+      "evidence": [
+        "T2",
+        "D7",
+        "I5"
+      ],
+      "status_note": "Trade relationship documented · product unconfirmed"
+    },
+    {
+      "id": "catl",
+      "name": "CATL",
+      "short": "CATL",
+      "role": "World's largest battery maker; shareholder in CMOC and in CMOC's Kisanfu mine",
+      "stage": "ownership",
+      "place": "Ningde, Fujian, China",
+      "lat": 26.66,
+      "lon": 119.55,
+      "status": "documented",
+      "evidence": [
+        "D5",
+        "D6",
+        "D7",
+        "I6"
+      ]
+    },
+    {
       "id": "refiners",
-      "name": "Cobalt refiners",
-      "role": "Unidentified for this material",
+      "name": "Other refiners",
+      "role": "Unidentified for this mine's cobalt",
       "stage": "refining",
       "place": "Location unknown",
       "lat": -8,
@@ -87,7 +121,7 @@
         "I2",
         "M1"
       ],
-      "short": "Refiners",
+      "short": "Other refiners",
       "layout_only": true
     },
     {
@@ -166,6 +200,47 @@
       ]
     },
     {
+      "from": "ixm",
+      "to": "brunp",
+      "type": "ships_to",
+      "label": "trade relationship, product unconfirmed",
+      "status": "reported",
+      "evidence": [
+        "T2",
+        "I5"
+      ]
+    },
+    {
+      "from": "ixm",
+      "to": "refiners",
+      "type": "ships_to",
+      "label": "unknown",
+      "status": "unknown",
+      "evidence": [
+        "M1"
+      ]
+    },
+    {
+      "from": "catl",
+      "to": "brunp",
+      "type": "owns",
+      "label": "majority owner",
+      "status": "documented",
+      "evidence": [
+        "D7"
+      ]
+    },
+    {
+      "from": "catl",
+      "to": "cmoc",
+      "type": "owns",
+      "label": "24.68% indirect stake (2022)",
+      "status": "documented",
+      "evidence": [
+        "D5"
+      ]
+    },
+    {
       "from": "tfm",
       "to": "ixm",
       "type": "ships_to",
@@ -174,17 +249,6 @@
       "evidence": [
         "T1",
         "I1"
-      ]
-    },
-    {
-      "from": "ixm",
-      "to": "refiners",
-      "type": "ships_to",
-      "label": "trail goes cold",
-      "status": "unknown",
-      "evidence": [
-        "M1",
-        "I2"
       ]
     },
     {
@@ -298,6 +362,44 @@
       "retrieved": "2026-11-23"
     },
     {
+      "id": "D5",
+      "class": "documentary",
+      "title": "CATL became CMOC's second-largest shareholder",
+      "text": "In 2022, a Shenzhen Stock Exchange filing showed CATL taking a 24.68% indirect stake in CMOC, making it the second-largest shareholder after Cathay Fortune. Ownership may have changed since.",
+      "source": "Project Blue, reporting the 2022 filing",
+      "url": "https://projectblue.com/blue/news-analysis/15/catl-takes-25precent-share-in-cobalt-giant-cmoc",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "D6",
+      "class": "documentary",
+      "title": "CATL bought into CMOC's Kisanfu mine, with a cobalt supply arrangement",
+      "text": "In 2021 a CATL subsidiary bought 25% of KFM Holding, which owns CMOC's Kisanfu copper-cobalt mine, and CMOC said it would become a long-term cobalt supplier to CATL. Kisanfu is a different mine from Tenke Fungurume.",
+      "quote": "…a long-term cobalt supplier to the world's largest power battery manufacturer.",
+      "source": "Mining Weekly, April 2021",
+      "url": "https://www.miningweekly.com/article/catl-takes-stake-in-drc-cobalt-mine-for-1375m-2021-04-12",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "D7",
+      "class": "documentary",
+      "title": "BRUNP is CATL's battery-recycling subsidiary",
+      "text": "BRUNP, based in Foshan, is CATL's battery recycling arm and recovers nickel, cobalt and manganese from used batteries. Reports differ on the size of CATL's stake.",
+      "source": "electrive, October 2025",
+      "url": "https://www.electrive.com/2025/10/23/catl-subsidiary-brunp-reports-progress-in-battery-recycling",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "T2",
+      "class": "documentary",
+      "title": "IXM's China entity trades with battery-materials companies, product unconfirmed",
+      "text": "Licensed trade data reviewed in Sayari records a China-registered IXM entity with shipping relationships to BRUNP and to several other Chinese battery-materials and metals companies. BRUNP is also among the largest receivers in the data of cobalt hydroxide shipped from Tanzania to China. The records reviewed did not confirm which product IXM shipped to BRUNP, or when.",
+      "source": "Sayari Graph trade relationships (licensed; reviewed via Sayari MCP, records not reproduced)",
+      "url": "https://documentation.sayari.com/api/guides/getting-started",
+      "retrieved": "2026-11-24",
+      "licensed": true
+    },
+    {
       "id": "I1",
       "class": "inference",
       "title": "TFM's cobalt is most likely marketed through IXM",
@@ -345,10 +447,32 @@
       "retrieved": "2026-11-23"
     },
     {
+      "id": "I5",
+      "class": "inference",
+      "title": "CATL's group is a plausible destination for some CMOC cobalt, but not proven for this mine",
+      "text": "Ownership ties (D5, D6) and trade relationships (T2) make CATL's group a plausible buyer of some cobalt sold by IXM. They do not show that Tenke Fungurume's cobalt reached BRUNP or CATL, because IXM also sells cobalt from other mines, including Kisanfu.",
+      "basis": [
+        "D5",
+        "D6",
+        "T2",
+        "D2"
+      ]
+    },
+    {
+      "id": "I6",
+      "class": "inference",
+      "title": "This trail points toward car and grid batteries more than phones",
+      "text": "CATL is best known for electric-vehicle and energy-storage batteries. ETHOS found no document linking this trail to phone batteries, so the link to the phone in Chapter 1 remains missing (M2).",
+      "basis": [
+        "D7",
+        "M2"
+      ]
+    },
+    {
       "id": "M1",
       "class": "missing",
-      "title": "The trail goes cold after the trader",
-      "text": "In the trade data reviewed, IXM's documented onward consignees are thinly identified trading entities. No document links this cobalt to a named refiner."
+      "title": "No document links this mine's cobalt to a named refiner",
+      "text": "The Tanzanian IXM and CMOC consignees have no recorded onward shipments. IXM's China entity trades with battery-materials companies (T2), but no record ties Tenke Fungurume's cobalt to any of them."
     },
     {
       "id": "M2",

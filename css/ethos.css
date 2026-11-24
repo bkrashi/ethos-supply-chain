@@ -126,7 +126,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.0
 .route .sep { width: 22px; height: 0; border-top: 1.5px solid var(--line-2); }
 .route .sep.unknown { border-top-style: dashed; border-color: var(--ev-missing); }
 
-.side { position: absolute; z-index: 4; right: var(--gutter); top: 96px; bottom: 28px; width: min(400px, 92vw); overflow-y: auto; padding: 26px; border-radius: var(--r); background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: opacity .5s var(--ease), transform .5s var(--ease); scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.side { position: absolute; z-index: 4; right: var(--gutter); top: 140px; bottom: 28px; width: min(400px, 92vw); overflow-y: auto; padding: 26px; border-radius: var(--r); background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: opacity .5s var(--ease), transform .5s var(--ease); scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
 .side.hidden { opacity: 0; transform: translateX(16px); pointer-events: none; }
 .side h3 { font-size: var(--step-2); margin: 6px 0 4px; }
 .side .meta { color: var(--ink-3); font-size: 14px; margin-bottom: 18px; }
@@ -315,3 +315,5 @@ body.present .present-hint { display: block; }
 .glabel.on { border-color: var(--amber); background: rgba(36, 75, 60, .9); }
 @media (max-width: 900px) { .glabel { font-size: 11px; } }
 body.no-motion *, body.no-motion *::before, body.no-motion *::after { transition: none !important; animation: none !important; }
+
+#globeCanvas, #phoneCanvas, #heroCanvas { z-index: 0; } /* contain CSS2D label z-indexes below panels */

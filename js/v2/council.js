@@ -22,7 +22,7 @@ export function buildTimeline({ caseData, r1, r2, r3, r4, priority }) {
 
   phase('1 · Investigate');
   say('investigation', 'I followed cobalt from Tenke Fungurume. Company filings show CMOC owns 80% of the mine and all of the trader IXM.', ['D1', 'D2'], { flow: 'in', nodes: ['tfm', 'cmoc', 'ixm'] });
-  say('investigation', 'Trade records show the mine sending cobalt hydroxide to IXM-named companies in Tanzania. After that, the trail goes cold.', ['T1', 'M1'], { flow: 'in', nodes: ['ixm', 'refiners'] });
+  say('investigation', 'Trade records show the mine sending cobalt hydroxide to IXM-named companies in Tanzania. IXM’s China entity trades with CATL’s recycling arm, but no record shows this mine’s cobalt went there.', ['T1', 'T2', 'I5'], { flow: 'in', nodes: ['ixm', 'brunp'] });
   say('investigation', 'Screening tools flag this cobalt because DR Congo cobalt is on the U.S. Labor Department list. That is a warning about the country, not a finding about this mine.', ['K1', 'K2'], { flow: 'in' });
 
   phase('2 · Examine independently');

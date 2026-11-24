@@ -91,18 +91,18 @@ function showPart(id) {
 }
 
 // ─────────── Chapter 2 ───────────
-const routeOrder = ['tfm', 'ixm', 'refiners', 'cells', 'phone', 'you'];
+const routeOrder = ['tfm', 'ixm', 'brunp', 'cells', 'phone', 'you'];
 $('#route').innerHTML = routeOrder.map((id, i) => {
   const n = NODE[id];
   return `${i ? `<span class="sep ${n.status === 'unknown' ? 'unknown' : ''}"></span>` : ''}<button data-node="${id}"><span class="dot ${n.status}"></span>${esc(n.short || n.name)}</button>`;
-}).join('') + `<span class="sep"></span><button data-node="cmoc"><span class="dot"></span>Owners</button>`;
+}).join('') + `<span class="sep"></span><button data-node="cmoc"><span class="dot"></span>CMOC</button><button data-node="catl"><span class="dot"></span>CATL</button>`;
 $('#route').addEventListener('click', e => { const b = e.target.closest('[data-node]'); if (b) openNode(b.dataset.node); });
 function openNode(id) {
   const n = NODE[id]; globe?.focus(id);
   $$('#route button').forEach(b => b.classList.toggle('on', b.dataset.node === id));
   const edges = caseData.edges.filter(e => e.from === id || e.to === id);
   const evIds = [...new Set([...n.evidence, ...edges.flatMap(e => e.evidence)])];
-  const statusLine = { documented: 'Documented in public records', reported: 'Reported by secondary sources only', unknown: 'Unknown: no documented link' }[n.status];
+  const statusLine = n.status_note || { documented: 'Documented in public records', reported: 'Reported by secondary sources only', unknown: 'Unknown: no documented link' }[n.status];
   $('#nodePanel').innerHTML = `<button class="close" aria-label="Close">×</button>
     <span class="ev ${n.status === 'documented' ? 'documentary' : n.status === 'reported' ? 'inference' : 'missing'}">${statusLine}</span>
     <h3>${esc(n.name)}</h3>
@@ -294,5 +294,6 @@ const start = location.hash.slice(1);
 await go(ORDER.includes(start) ? start : 'prologue');
 if (params.has('present')) document.body.classList.add('present'), presentBeats(current);
 if (params.has('analyst')) toggleAnalyst(true);
+if (params.get('node') && NODE[params.get('node')] && current === 'journey') openNode(params.get('node'));
 if (params.has('run') && current === 'intervention') changeTheFuture({ pace: Number(params.get('run')) || 0.3 });
 window.ETHOS = { go, changeTheFuture, toggleAnalyst, togglePresent };
