@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ETHOS Scenario Lab · Illustrative digital twin</title>
+  <meta name="description" content="An interactive 3D digital twin where six AI agents debate how to source batteries without human-rights abuse or environmental harm. Educational simulation." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='26' fill='none' stroke='%233df0ff' stroke-width='5'/><circle cx='32' cy='32' r='9' fill='%233df0ff'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <script type="importmap">
+    { "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body>
+  <div id="world"></div>
+  <div class="vignette"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo"><span></span></div>
+      <div>
+        <h1>ETHOS</h1>
+        <p>The Supply Chain of Tomorrow</p>
+      </div>
+    </div>
+    <div class="scenario">
+      <span class="eyebrow">Scenario 01</span>
+      <strong>Battery packs for <em>Lumen Devices</em></strong>
+      <span class="fiction-tag" title="Every company, site and person in this scenario is fictional">fictional company</span>
+    </div>
+    <ol class="steps" id="steps">
+      <li data-step="0" class="active"><b>1</b>Explore</li>
+      <li data-step="1"><b>2</b>Stress-test</li>
+      <li data-step="2"><b>3</b>Rebuild</li>
+      <li data-step="3"><b>4</b>Compare</li>
+    </ol>
+    <div class="top-actions">
+      <span class="mode-badge" id="modeBadge" title="">SIMULATION</span>
+      <button class="ghost" id="btnEvidence">Evidence locker</button>
+      <button class="ghost" id="btnDemo">▶ Guided demo</button>
+      <button class="ghost icon" id="btnAbout" title="About this project">?</button><a class="ghost" href="../" style="text-decoration:none">← ETHOS</a>
+    </div>
+  </header>
+
+  <!-- Left: strategy lab -->
+  <aside class="panel left" id="lab">
+    <section>
+      <div class="panel-head">
+        <h2>Sourcing strategy</h2>
+        <span class="strategy-tag" id="strategyTag">Original</span>
+      </div>
+      <div class="slider" data-key="cost">
+        <label><span>Cost pressure</span><output></output></label>
+        <input type="range" min="0" max="100" step="1" />
+        <small>How hard Lumen pushes suppliers on price</small>
+      </div>
+      <div class="slider" data-key="deadline">
+        <label><span>Delivery deadline</span><output></output></label>
+        <input type="range" min="4" max="26" step="1" />
+        <small>Weeks suppliers get to deliver the order</small>
+      </div>
+      <div class="slider" data-key="trace">
+        <label><span>Traceability requirement</span><output></output></label>
+        <input type="range" min="0" max="100" step="1" />
+        <small>0 = tier-1 paperwork only · 100 = mine-site chain of custody</small>
+      </div>
+      <div class="slider" data-key="protect">
+        <label><span>Worker-protection investment</span><output></output></label>
+        <input type="range" min="0" max="5" step="0.1" />
+        <small>% of spend for PPE, fair wages, schooling and grievance channels</small>
+      </div>
+      <div class="structure" id="structure"></div>
+      <button class="link" id="btnReset">↺ Reset to original strategy</button>
+    </section>
+    <section>
+      <div class="panel-head">
+        <h2>Outcomes</h2>
+        <span class="sim-chip" title="Produced by an illustrative model, not measured">SIMULATED</span>
+      </div>
+      <div class="metrics" id="metrics"></div>
+      <p class="fine">Δ compared with the original strategy. Risk bands (±) widen when traceability is low, because we can see less.</p>
+    </section>
+  </aside>
+
+  <!-- Right: agent council -->
+  <aside class="panel right" id="council">
+    <div class="panel-head">
+      <h2>Agent council</h2>
+      <button class="link small" id="btnFollow" aria-pressed="true">📍 camera follows</button>
+    </div>
+    <div class="roster" id="roster"></div>
+    <ol class="phases" id="phases">
+      <li>Discover</li><li>Assess</li><li>Challenge</li><li>Design</li><li>Debate</li><li>Decide</li>
+    </ol>
+    <div class="feed" id="feed"></div>
+  </aside>
+
+  <!-- Inspector -->
+  <div class="inspector hidden" id="inspector"></div>
+
+  <!-- Center bottom actions -->
+  <div class="dock">
+    <div class="caption hidden" id="caption"></div>
+    <div class="dock-buttons">
+      <button class="rebuild" id="btnRebuild"><span class="rb-glow"></span><span class="rb-icon">✦</span><span class="rb-text">Rebuild Ethically</span></button>
+      <button class="ghost compare" id="btnCompare" disabled>Before / after</button>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="ev verified">Verified fact</span>
+    <span class="ev suspected">Suspected risk</span>
+    <span class="ev missing">Missing evidence</span>
+    <span class="ev simulated">Simulated outcome</span>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal hidden" id="modal"><div class="modal-card" role="dialog" aria-modal="true"><button class="close" data-close>×</button><div class="modal-body" id="modalBody"></div></div></div>
+
+  <!-- Intro -->
+  <div class="intro" id="intro">
+    <div class="intro-card">
+      <div class="logo big"><span></span></div>
+      <p class="eyebrow">ETHOS · Ethical decision-making laboratory</p>
+      <h1>Every battery has a story.</h1>
+      <p class="lede">Behind a phone battery is a chain of mines, refiners, factories and ports, and the people who live and work along it. In this lab, six AI agents with competing objectives debate how one electronics company should source its batteries.</p>
+      <div class="intro-grid">
+        <div><b>Real evidence</b><span>Facts come from the ILO and U.S. Department of Labor, at country and sector level.</span></div>
+        <div><b>Fictional chain</b><span>Lumen Devices and every supplier, site and person shown are invented.</span></div>
+        <div><b>Simulated outcomes</b><span>Scores come from an illustrative model. They are not findings.</span></div>
+      </div>
+      <div class="intro-actions">
+        <button class="rebuild small" id="btnStart"><span class="rb-glow"></span><span class="rb-text">Enter the digital twin</span></button>
+        <button class="ghost" id="btnStartDemo">▶ Start 3-minute guided demo</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript><p class="noscript">ETHOS needs JavaScript and WebGL.</p></noscript>
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>

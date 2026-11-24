@@ -1,0 +1,497 @@
+{
+  "id": "case-tfm-cobalt",
+  "title": "Following cobalt from one Congolese mine",
+  "question": "Can a company that buys battery cobalt trace it back to the mine, and what should it do with what it finds?",
+  "investigated": "2026-11-23 (extended 2026-11-24)",
+  "investigator": "ETHOS Investigation agent (Claude Opus 5.5 via Sayari MCP + public web sources)",
+  "scope_note": "One bounded investigation. It starts at one industrial copper-cobalt mine and follows the documented trail as far as evidence allows. It does not map the cobalt industry, and it does not claim that any specific phone or battery contains this cobalt.",
+  "licensing_note": "Sayari data is licensed. Raw Sayari records, identifiers and counts are kept in a local, git-ignored cache and are not republished here. Public statements below are supported by public sources; where Sayari corroborates them, this is noted without reproducing the records.",
+  "classes": {
+    "documentary": "Verified documentary evidence: a primary or authoritative public document states it.",
+    "indicator": "Documented risk indicator: a recognised list or screening method flags a risk. It is not a finding of abuse.",
+    "inference": "Analytical inference: a reasoned conclusion from the evidence. It could be wrong.",
+    "missing": "Missing information: something a responsible buyer would need but does not have.",
+    "simulated": "Simulated decision or outcome: produced by the ETHOS agent council. It is illustrative and needs human review."
+  },
+  "nodes": [
+    {
+      "id": "tfm",
+      "name": "Tenke Fungurume Mining (TFM)",
+      "role": "Industrial copper-cobalt mine",
+      "stage": "extraction",
+      "place": "Lualaba Province, DR Congo",
+      "lat": -10.6,
+      "lon": 26.15,
+      "status": "documented",
+      "evidence": [
+        "D1",
+        "K1",
+        "K2",
+        "K3"
+      ],
+      "short": "Tenke Fungurume"
+    },
+    {
+      "id": "cmoc",
+      "name": "CMOC Group",
+      "role": "Majority owner of TFM (80%)",
+      "stage": "ownership",
+      "place": "Luoyang, China",
+      "lat": 34.62,
+      "lon": 112.45,
+      "status": "documented",
+      "evidence": [
+        "D1",
+        "D2"
+      ]
+    },
+    {
+      "id": "gecamines",
+      "name": "Gécamines",
+      "role": "DRC state miner, reported minority owner",
+      "stage": "ownership",
+      "place": "Lubumbashi, DR Congo",
+      "lat": -11.66,
+      "lon": 27.48,
+      "status": "reported",
+      "evidence": [
+        "I4"
+      ]
+    },
+    {
+      "id": "ixm",
+      "name": "IXM",
+      "role": "Metals trader, wholly owned by CMOC",
+      "stage": "trading",
+      "place": "Consignee addresses in Dar es Salaam, Tanzania",
+      "lat": -6.82,
+      "lon": 39.28,
+      "status": "documented",
+      "evidence": [
+        "D2",
+        "T1",
+        "I1"
+      ],
+      "short": "IXM"
+    },
+    {
+      "id": "brunp",
+      "name": "BRUNP (CATL subsidiary)",
+      "short": "BRUNP",
+      "role": "Battery recycling and materials company, majority-owned by CATL",
+      "stage": "refining",
+      "place": "Foshan, Guangdong, China",
+      "lat": 23.02,
+      "lon": 113.12,
+      "status": "reported",
+      "evidence": [
+        "T2",
+        "D7",
+        "I5"
+      ],
+      "status_note": "Trade relationship documented · product unconfirmed"
+    },
+    {
+      "id": "catl",
+      "name": "CATL",
+      "short": "CATL",
+      "role": "World's largest battery maker; shareholder in CMOC and in CMOC's Kisanfu mine",
+      "stage": "ownership",
+      "place": "Ningde, Fujian, China",
+      "lat": 26.66,
+      "lon": 119.55,
+      "status": "documented",
+      "evidence": [
+        "D5",
+        "D6",
+        "D7",
+        "I6"
+      ]
+    },
+    {
+      "id": "refiners",
+      "name": "Other refiners",
+      "role": "Unidentified for this mine's cobalt",
+      "stage": "refining",
+      "place": "Location unknown",
+      "lat": -8,
+      "lon": 62,
+      "status": "unknown",
+      "evidence": [
+        "I2",
+        "M1"
+      ],
+      "short": "Other refiners",
+      "layout_only": true
+    },
+    {
+      "id": "cells",
+      "name": "Battery material and cell makers",
+      "role": "Unidentified for this material",
+      "stage": "manufacturing",
+      "place": "Unknown",
+      "lat": 6,
+      "lon": 82,
+      "status": "unknown",
+      "evidence": [
+        "M2"
+      ],
+      "short": "Cell makers",
+      "layout_only": true
+    },
+    {
+      "id": "phone",
+      "name": "A smartphone",
+      "role": "Any brand. No product-specific link exists",
+      "stage": "product",
+      "place": "Assembled for global markets",
+      "lat": 20,
+      "lon": 100,
+      "status": "unknown",
+      "evidence": [
+        "M2"
+      ],
+      "short": "A smartphone",
+      "layout_only": true
+    },
+    {
+      "id": "you",
+      "name": "You",
+      "role": "The person holding the phone",
+      "stage": "consumer",
+      "place": "Anywhere",
+      "lat": 34,
+      "lon": 118,
+      "status": "unknown",
+      "evidence": [],
+      "short": "You",
+      "layout_only": true
+    }
+  ],
+  "edges": [
+    {
+      "from": "cmoc",
+      "to": "tfm",
+      "type": "owns",
+      "label": "owns 80%",
+      "status": "documented",
+      "evidence": [
+        "D1"
+      ]
+    },
+    {
+      "from": "gecamines",
+      "to": "tfm",
+      "type": "owns",
+      "label": "reported 20%",
+      "status": "reported",
+      "evidence": [
+        "I4"
+      ]
+    },
+    {
+      "from": "cmoc",
+      "to": "ixm",
+      "type": "owns",
+      "label": "owns 100%",
+      "status": "documented",
+      "evidence": [
+        "D2"
+      ]
+    },
+    {
+      "from": "ixm",
+      "to": "brunp",
+      "type": "ships_to",
+      "label": "trade relationship, product unconfirmed",
+      "status": "reported",
+      "evidence": [
+        "T2",
+        "I5"
+      ]
+    },
+    {
+      "from": "ixm",
+      "to": "refiners",
+      "type": "ships_to",
+      "label": "unknown",
+      "status": "unknown",
+      "evidence": [
+        "M1"
+      ]
+    },
+    {
+      "from": "catl",
+      "to": "brunp",
+      "type": "owns",
+      "label": "majority owner",
+      "status": "documented",
+      "evidence": [
+        "D7"
+      ]
+    },
+    {
+      "from": "catl",
+      "to": "cmoc",
+      "type": "owns",
+      "label": "24.68% indirect stake (2022)",
+      "status": "documented",
+      "evidence": [
+        "D5"
+      ]
+    },
+    {
+      "from": "tfm",
+      "to": "ixm",
+      "type": "ships_to",
+      "label": "cobalt hydroxide consignments",
+      "status": "documented",
+      "evidence": [
+        "T1",
+        "I1"
+      ]
+    },
+    {
+      "from": "refiners",
+      "to": "cells",
+      "type": "supplies",
+      "label": "unknown",
+      "status": "unknown",
+      "evidence": [
+        "M2"
+      ]
+    },
+    {
+      "from": "cells",
+      "to": "phone",
+      "type": "supplies",
+      "label": "unknown",
+      "status": "unknown",
+      "evidence": [
+        "M2"
+      ]
+    },
+    {
+      "from": "phone",
+      "to": "you",
+      "type": "sold_to",
+      "label": "unknown",
+      "status": "unknown",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "D1",
+      "class": "documentary",
+      "title": "CMOC holds an 80% stake in TFM",
+      "text": "CMOC's own website states that it holds an 80% stake in the TFM copper-cobalt mine. Its company history lists a 56% interest acquired in November 2016 and a further 24% in April 2017.",
+      "quote": "CMOC holds an 80% stake in the TFM copper-cobalt mine.",
+      "source": "CMOC Group, Business: Congo copper-cobalt",
+      "url": "https://en.cmoc.com/html/Business/Congo-Cu-Co/",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "D2",
+      "class": "documentary",
+      "title": "IXM is a wholly owned CMOC subsidiary that sells CMOC's major products",
+      "text": "CMOC describes IXM as a wholly owned subsidiary and one of the world's main copper and cobalt traders, and says the company's major products are sold externally through IXM. CMOC acquired 100% of IXM in October 2018.",
+      "quote": "IXM is a wholly-owned subsidiary of CMOC … The Company's major products are sold externally through IXM.",
+      "source": "CMOC Group, Business: IXM; About us: Memorabilia",
+      "url": "https://en.cmoc.com/html/Business/IXM/",
+      "url2": "https://en.cmoc.com/html/AboutUs/Memorabilia/",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "T1",
+      "class": "documentary",
+      "title": "Trade records show TFM consigning cobalt hydroxide to IXM- and CMOC-named entities",
+      "text": "Licensed trade data reviewed in Sayari (2024–2026) records TFM as shipper of cobalt oxides and hydroxides (HS 2822) to consignees named IXM, IXM Africa and CMOC Limited, mostly at Tanzanian addresses on the Dar es Salaam corridor. The same data also shows TFM consigning to warehouses named after other large commodity traders. Records are not reproduced here.",
+      "source": "Sayari Graph trade data (licensed; reviewed via Sayari MCP)",
+      "url": "https://documentation.sayari.com/api/guides/getting-started",
+      "retrieved": "2026-11-23",
+      "licensed": true
+    },
+    {
+      "id": "K1",
+      "class": "indicator",
+      "title": "Cobalt ore from the DRC is on the U.S. DOL child-labor list",
+      "text": "The U.S. Department of Labor has listed cobalt ore (heterogenite) from the DRC as produced with child labor since 2009. This is a country–product listing. It is not a finding about TFM, which is an industrial mine.",
+      "quote": "In 2009 the Department of Labor placed cobalt ore from the DRC on its List of Goods Produced by Child Labor or Forced Labor.",
+      "source": "U.S. Department of Labor, ILAB",
+      "url": "https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods/supply-chains/lithium-ion-batteries",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "K2",
+      "class": "indicator",
+      "title": "Screening tools flag DRC cobalt exports automatically",
+      "text": "Commercial screening tools, including Sayari, flag any exporter whose shipments match a product and origin on the DOL list. TFM carries such a flag. The flag reflects the product and country, not evidence of child labor at TFM.",
+      "source": "Sayari risk-factor definition 'Exports Goods with ILAB Child Labor Risk' (licensed; paraphrased)",
+      "url": "https://documentation.sayari.com/api/key-concepts/endpoint-overview",
+      "retrieved": "2026-11-23",
+      "licensed": true
+    },
+    {
+      "id": "K3",
+      "class": "indicator",
+      "title": "Most child labour is in sub-Saharan Africa; artisanal mines are rarely inspected",
+      "text": "ILO and UNICEF estimate 138 million children in child labour in 2024, nearly two-thirds of them in sub-Saharan Africa. DOL reports that artisanal mines produce 15–30% of DRC cobalt output and are rarely visited by labour inspectors.",
+      "source": "ILO & UNICEF, Child Labour: Global Estimates 2024; U.S. DOL ILAB",
+      "url": "https://www.ilo.org/publications/major-publications/child-labour-global-estimates-2024-trends-and-road-forward",
+      "url2": "https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods/supply-chains/lithium-ion-batteries",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "D3",
+      "class": "documentary",
+      "title": "DRC export suspension, then quotas",
+      "text": "The DRC's cobalt regulator ARECOMS suspended cobalt exports from 22 February 2025, then replaced the suspension with export quotas from mid-October 2025, maintained through 2027. Supply from the DRC is now policy-constrained.",
+      "source": "IEA Policies Database: ARECOMS Decision No. 004/2025 and temporary export suspension",
+      "url": "https://www.iea.org/policies/29138-drc-arecoms-decision-no-0042025-cobalt-quota-system",
+      "url2": "https://www.iea.org/policies/28969-temporary-suspension-of-cobalt-export-from-the-democratic-republic-of-congo",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "D4",
+      "class": "documentary",
+      "title": "China imports nearly 90% of its cobalt from the DRC",
+      "text": "DOL describes a cobalt supply chain dominated by China, which imports nearly 90% of its cobalt from the DRC, where it is refined into battery chemicals.",
+      "source": "U.S. Department of Labor, ILAB",
+      "url": "https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods/supply-chains/lithium-ion-batteries",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "D5",
+      "class": "documentary",
+      "title": "CATL became CMOC's second-largest shareholder",
+      "text": "In 2022, a Shenzhen Stock Exchange filing showed CATL taking a 24.68% indirect stake in CMOC, making it the second-largest shareholder after Cathay Fortune. Ownership may have changed since.",
+      "source": "Project Blue, reporting the 2022 filing",
+      "url": "https://projectblue.com/blue/news-analysis/15/catl-takes-25precent-share-in-cobalt-giant-cmoc",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "D6",
+      "class": "documentary",
+      "title": "CATL bought into CMOC's Kisanfu mine, with a cobalt supply arrangement",
+      "text": "In 2021 a CATL subsidiary bought 25% of KFM Holding, which owns CMOC's Kisanfu copper-cobalt mine, and CMOC said it would become a long-term cobalt supplier to CATL. Kisanfu is a different mine from Tenke Fungurume.",
+      "quote": "…a long-term cobalt supplier to the world's largest power battery manufacturer.",
+      "source": "Mining Weekly, April 2021",
+      "url": "https://www.miningweekly.com/article/catl-takes-stake-in-drc-cobalt-mine-for-1375m-2021-04-12",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "D7",
+      "class": "documentary",
+      "title": "BRUNP is CATL's battery-recycling subsidiary",
+      "text": "BRUNP, based in Foshan, is CATL's battery recycling arm and recovers nickel, cobalt and manganese from used batteries. Reports differ on the size of CATL's stake.",
+      "source": "electrive, October 2025",
+      "url": "https://www.electrive.com/2025/10/23/catl-subsidiary-brunp-reports-progress-in-battery-recycling",
+      "retrieved": "2026-11-24"
+    },
+    {
+      "id": "T2",
+      "class": "documentary",
+      "title": "IXM's China entity trades with battery-materials companies, product unconfirmed",
+      "text": "Licensed trade data reviewed in Sayari records a China-registered IXM entity with shipping relationships to BRUNP and to several other Chinese battery-materials and metals companies. BRUNP is also among the largest receivers in the data of cobalt hydroxide shipped from Tanzania to China. The records reviewed did not confirm which product IXM shipped to BRUNP, or when.",
+      "source": "Sayari Graph trade relationships (licensed; reviewed via Sayari MCP, records not reproduced)",
+      "url": "https://documentation.sayari.com/api/guides/getting-started",
+      "retrieved": "2026-11-24",
+      "licensed": true
+    },
+    {
+      "id": "I1",
+      "class": "inference",
+      "title": "TFM's cobalt is most likely marketed through IXM",
+      "text": "CMOC says its major products are sold through IXM (D2), and trade records show TFM consigning cobalt hydroxide to IXM-named entities (T1). Together they make IXM the most likely first buyer. CMOC's pages do not name TFM's output specifically. The same trade data also shows consignments to warehouses named after other large traders, so IXM may not be the only route.",
+      "basis": [
+        "D2",
+        "T1"
+      ],
+      "revision": {
+        "challenged_by": "humanrights",
+        "reason": "Treating IXM as the only path could hide other routes."
+      }
+    },
+    {
+      "id": "I2",
+      "class": "inference",
+      "title": "The refiner's country is not documented",
+      "text": "DOL notes that China imports nearly 90% of its cobalt from the DRC (D4), so a Chinese refiner is plausible. That fact describes China's imports, not where this mine's cobalt goes, so the refiner's location remains unknown until a shipping or purchase record shows it.",
+      "basis": [
+        "D4"
+      ],
+      "revision": {
+        "from": "The next stop is probably a Chinese refiner. Because China imports nearly 90% of its cobalt from the DRC, the cobalt is most likely refined in China.",
+        "challenged_by": "humanrights",
+        "reason": "D4 describes China's import sources, not the destination of DRC cobalt; the inference reversed the direction of the fact."
+      }
+    },
+    {
+      "id": "I3",
+      "class": "inference",
+      "title": "Industrial and artisanal cobalt can meet downstream",
+      "text": "TFM is an industrial mine, while DOL's child-labour concern centres on artisanal sites (K3). Traders and refiners can handle material from many sources, so without chain-of-custody records a buyer cannot show that its cobalt is separate from high-risk sources.",
+      "basis": [
+        "K1",
+        "K3"
+      ]
+    },
+    {
+      "id": "I4",
+      "class": "inference",
+      "title": "Gécamines reportedly holds the remaining 20%",
+      "text": "Secondary sources report that the DRC state miner Gécamines holds the remaining 20% of TFM. ETHOS did not confirm this in a primary document.",
+      "source": "Business & Human Rights Resource Centre company profile (secondary)",
+      "url": "https://www.business-humanrights.org/en/tenke-fungurume-joint-venture-china-molybdenum-bhr-partners-gécamines",
+      "retrieved": "2026-11-23"
+    },
+    {
+      "id": "I5",
+      "class": "inference",
+      "title": "CATL's group is a plausible destination for some CMOC cobalt, but not proven for this mine",
+      "text": "Ownership ties (D5, D6) and trade relationships (T2) make CATL's group a plausible buyer of some cobalt sold by IXM. They do not show that Tenke Fungurume's cobalt reached BRUNP or CATL, because IXM also sells cobalt from other mines, including Kisanfu.",
+      "basis": [
+        "D5",
+        "D6",
+        "T2",
+        "D2"
+      ]
+    },
+    {
+      "id": "I6",
+      "class": "inference",
+      "title": "This trail points toward car and grid batteries more than phones",
+      "text": "CATL is best known for electric-vehicle and energy-storage batteries. ETHOS found no document linking this trail to phone batteries, so the link to the phone in Chapter 1 remains missing (M2).",
+      "basis": [
+        "D7",
+        "M2"
+      ]
+    },
+    {
+      "id": "M1",
+      "class": "missing",
+      "title": "No document links this mine's cobalt to a named refiner",
+      "text": "The Tanzanian IXM and CMOC consignees have no recorded onward shipments. IXM's China entity trades with battery-materials companies (T2), but no record ties Tenke Fungurume's cobalt to any of them."
+    },
+    {
+      "id": "M2",
+      "class": "missing",
+      "title": "No link from any refiner to a battery or phone",
+      "text": "No evidence ties this cobalt to a specific battery cell maker, device brand or product. Any such claim would be speculation."
+    },
+    {
+      "id": "M3",
+      "class": "missing",
+      "title": "Ownership records disagree",
+      "text": "The registry-derived ownership graph reviewed in Sayari does not show CMOC as TFM's shareholder. It lists individuals and a historical U.S. entity. Company disclosures (D1) are more current, and the conflict needs resolving with an official registry extract."
+    },
+    {
+      "id": "M4",
+      "class": "missing",
+      "title": "No site-level labour or environmental audit reviewed",
+      "text": "ETHOS has not reviewed independent audits, worker interviews or water monitoring at TFM. No conclusion about conditions at the mine can be drawn."
+    }
+  ],
+  "layout_note": "Unknown stops are drawn floating above the ocean. Their position is layout only and implies no location."
+}
