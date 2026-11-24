@@ -1,4 +1,3 @@
-// LOCAL DEVELOPMENT ONLY (Scenario Lab v1). No auth or rate limiting: never deploy publicly. Use worker/ for production.
 // Optional: a tiny proxy that lets ETHOS use real LLM agents instead of the simulation.
 //
 //   ANTHROPIC_API_KEY=sk-... node server/agent-proxy.mjs

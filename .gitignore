@@ -1,9 +1,3 @@
 .DS_Store
 node_modules/
 .env
-
-# Licensed third-party data (Sayari) - never commit
-data/private/
-.dev.vars
-.wrangler/
-_harness.html

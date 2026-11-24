@@ -2,16 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>ETHOS · Intelligence for Good</title>
-  <meta name="description" content="Every product has a past. ETHOS follows cobalt from one Congolese mine toward the phone in your hand, and shows how a council of AI agents can help a company change what happens next." />
-  <meta name="theme-color" content="#101D18" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ETHOS · The Supply Chain of Tomorrow</title>
+  <meta name="description" content="An interactive 3D digital twin where six AI agents debate how to source batteries without human-rights abuse or environmental harm. Educational simulation." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='26' fill='none' stroke='%233df0ff' stroke-width='5'/><circle cx='32' cy='32' r='9' fill='%233df0ff'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/ethos.css" />
-  <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
   <script type="importmap">
     { "imports": {
         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
@@ -19,126 +17,134 @@
     } }
   </script>
 </head>
-<body data-ch="prologue">
-  <!-- Chrome -->
-  <header class="chrome">
-    <a class="wordmark" href="./" aria-label="ETHOS home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12.5" fill="none" stroke="#F5F1E8" stroke-width="1.6"/><path d="M16 3.5a12.5 12.5 0 0 1 0 25" fill="none" stroke="#CFAA6B" stroke-width="1.6"/><circle cx="16" cy="16" r="3.2" fill="#CFAA6B"/></svg>
-      <b>ETHOS</b><span>Intelligence for Good</span>
-    </a>
-    <nav class="chapters" aria-label="Chapters">
-      <button data-go="product"><i></i>1 · The Product</button>
-      <button data-go="journey"><i></i>2 · The Hidden Journey</button>
-      <button data-go="intervention"><i></i>3 · The Intervention</button>
-      <button data-go="future"><i></i>4 · The Future</button>
-    </nav>
-    <div class="tools">
-      <button class="pill" id="btnAnalyst" aria-pressed="false" title="Evidence, data and the scenario lab">Analyst mode</button>
-      <button class="pill" id="btnPresent" aria-pressed="false" title="Full screen, keyboard controls (← →, R to reset)">Present</button>
+<body>
+  <div id="world"></div>
+  <div class="vignette"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo"><span></span></div>
+      <div>
+        <h1>ETHOS</h1>
+        <p>The Supply Chain of Tomorrow</p>
+      </div>
+    </div>
+    <div class="scenario">
+      <span class="eyebrow">Scenario 01</span>
+      <strong>Battery packs for <em>Lumen Devices</em></strong>
+      <span class="fiction-tag" title="Every company, site and person in this scenario is fictional">fictional company</span>
+    </div>
+    <ol class="steps" id="steps">
+      <li data-step="0" class="active"><b>1</b>Explore</li>
+      <li data-step="1"><b>2</b>Stress-test</li>
+      <li data-step="2"><b>3</b>Rebuild</li>
+      <li data-step="3"><b>4</b>Compare</li>
+    </ol>
+    <div class="top-actions">
+      <span class="mode-badge" id="modeBadge" title="">SIMULATION</span>
+      <button class="ghost" id="btnEvidence">Evidence locker</button>
+      <button class="ghost" id="btnDemo">▶ Guided demo</button>
+      <button class="ghost icon" id="btnAbout" title="About this project">?</button>
     </div>
   </header>
 
-  <main class="stage">
-    <!-- Prologue -->
-    <section class="chapter active" id="prologue" aria-label="Introduction">
-      <div class="canvas-wrap" id="heroCanvas"></div>
-      <div class="copy reveal">
-        <p class="eyebrow">ETHOS · Intelligence for Good</p>
-        <h1>Every product has a past. <em>We can change its future.</em></h1>
-        <p class="lede">Follow the cobalt in a phone battery back toward a real mine. Then watch six AI agents work out what a company could do differently.</p>
-        <div class="cta-row">
-          <button class="btn" data-go="product">Begin the story →</button>
-          <span class="fineprint">About three minutes · Real public evidence · AI decisions are illustrative and need human review</span>
-        </div>
+  <!-- Left: strategy lab -->
+  <aside class="panel left" id="lab">
+    <section>
+      <div class="panel-head">
+        <h2>Sourcing strategy</h2>
+        <span class="strategy-tag" id="strategyTag">Original</span>
       </div>
-    </section>
-
-    <!-- Chapter 1 -->
-    <section class="chapter" id="product" aria-label="Chapter 1: The Product">
-      <div class="canvas-wrap" id="phoneCanvas"><div class="loading">Loading</div></div>
-      <div class="copy reveal">
-        <p class="eyebrow">Chapter 1 · The Product</p>
-        <h2>About 170 grams. Dozens of materials.</h2>
-        <p class="lede measure">Turn the phone around and tap a part to see what it is made of.</p>
-        <ul class="parts" id="parts"></ul>
-        <div class="part-card" id="partCard" aria-live="polite"></div>
-        <p class="question">Do we really know where the things we use every day come from?</p>
+      <div class="slider" data-key="cost">
+        <label><span>Cost pressure</span><output></output></label>
+        <input type="range" min="0" max="100" step="1" />
+        <small>How hard Lumen pushes suppliers on price</small>
       </div>
-    </section>
-
-    <!-- Chapter 2 -->
-    <section class="chapter" id="journey" aria-label="Chapter 2: The Hidden Journey">
-      <div class="canvas-wrap" id="globeCanvas"><div class="loading">Loading</div></div>
-      <div class="copy intro reveal">
-        <p class="eyebrow">Chapter 2 · The Hidden Journey</p>
-        <h2>One mine. A trail that fades.</h2>
-        <p class="lede measure">We followed cobalt from Tenke Fungurume, an industrial mine in DR Congo, through ownership filings and trade records, until the records ran out.</p>
-        <p class="caveat">Solid lines are documented. Dashed lines are unknown. A trade or ownership link is not proof of abuse, and it does not show that any particular phone contains this cobalt.</p>
+      <div class="slider" data-key="deadline">
+        <label><span>Delivery deadline</span><output></output></label>
+        <input type="range" min="4" max="26" step="1" />
+        <small>Weeks suppliers get to deliver the order</small>
       </div>
-      <div class="route" id="route" aria-label="Supply chain stops"></div>
-      <aside class="side hidden" id="nodePanel" aria-live="polite"></aside>
-    </section>
-
-    <!-- Chapter 3 -->
-    <section class="chapter" id="intervention" aria-label="Chapter 3: The Intervention">
-      <div class="council" id="council"></div>
-      <div class="copy intro reveal">
-        <p class="eyebrow">Chapter 3 · The Intervention</p>
-        <h2>Six agents. One shared evidence store.</h2>
-        <p class="lede measure">Choose what the business cares about most, then let the council work.</p>
-        <fieldset class="priorities" id="priorities" style="border:0;padding:0;margin:22px 0 18px">
-          <legend class="sr-only">Business priority</legend>
-          <label><input type="radio" name="priority" value="cost" /><div><b>Lowest cost</b><span>Keep prices down and change as little as possible</span></div></label>
-          <label><input type="radio" name="priority" value="speed" /><div><b>Fastest delivery</b><span>Protect the launch date and supply continuity</span></div></label>
-          <label><input type="radio" name="priority" value="responsible" checked /><div><b>Responsible sourcing</b><span>Know the source and fix what you find</span></div></label>
-        </fieldset>
-        <button class="btn amber change" id="btnChange">Change the Future</button>
-        <p class="run-label" id="runLabel"></p>
+      <div class="slider" data-key="trace">
+        <label><span>Traceability requirement</span><output></output></label>
+        <input type="range" min="0" max="100" step="1" />
+        <small>0 = tier-1 paperwork only · 100 = mine-site chain of custody</small>
       </div>
-      <p class="phase-label" id="phaseLabel" aria-live="polite"></p>
-      <div class="say" id="say" aria-live="polite"></div>
-      <div class="decision hidden" id="decision"></div>
+      <div class="slider" data-key="protect">
+        <label><span>Worker-protection investment</span><output></output></label>
+        <input type="range" min="0" max="5" step="0.1" />
+        <small>% of spend for PPE, fair wages, schooling and grievance channels</small>
+      </div>
+      <div class="structure" id="structure"></div>
+      <button class="link" id="btnReset">↺ Reset to original strategy</button>
     </section>
-
-    <!-- Chapter 4 -->
-    <section class="chapter" id="future" aria-label="Chapter 4: The Future">
-      <div class="wrap" id="futureBody"></div>
+    <section>
+      <div class="panel-head">
+        <h2>Outcomes</h2>
+        <span class="sim-chip" title="Produced by an illustrative model, not measured">SIMULATED</span>
+      </div>
+      <div class="metrics" id="metrics"></div>
+      <p class="fine">Δ compared with the original strategy. Risk bands (±) widen when traceability is low, because we can see less.</p>
     </section>
-  </main>
-
-  <!-- Footer controls -->
-  <nav class="controls" aria-label="Chapter navigation">
-    <span class="count" id="count">0 / 4</span>
-    <button id="prev" aria-label="Previous chapter">←</button>
-    <button id="next" aria-label="Next chapter">→</button>
-  </nav>
-  <p class="present-hint">← → chapters · Space continue · R reset · Esc exit</p>
-
-  <!-- Analyst mode -->
-  <div class="scrim" id="scrim"></div>
-  <aside class="analyst" id="analyst" aria-label="Analyst mode" aria-hidden="true">
-    <header>
-      <p class="eyebrow">Analyst mode</p>
-      <h2>Evidence, data and tools</h2>
-      <button class="pill" id="closeAnalyst" style="position:absolute;top:22px;right:22px">Close</button>
-    </header>
-    <div class="tabs" role="tablist">
-      <button class="on" data-tab="tEvidence">Evidence store</button>
-      <button data-tab="tGraph">Case data</button>
-      <button data-tab="tSearch">Investigate</button>
-      <button data-tab="tCouncil">Agent runs</button>
-      <button data-tab="tLab">Scenario lab</button>
-      <button data-tab="tSources">Sources &amp; licensing</button>
-    </div>
-    <div class="tab on" id="tEvidence"></div>
-    <div class="tab" id="tGraph"></div>
-    <div class="tab" id="tSearch"></div>
-    <div class="tab" id="tCouncil"></div>
-    <div class="tab" id="tLab"></div>
-    <div class="tab" id="tSources"></div>
   </aside>
 
-  <noscript><p style="padding:40px">ETHOS needs JavaScript.</p></noscript>
-  <script type="module" src="js/app.js"></script>
+  <!-- Right: agent council -->
+  <aside class="panel right" id="council">
+    <div class="panel-head">
+      <h2>Agent council</h2>
+      <button class="link small" id="btnFollow" aria-pressed="true">📍 camera follows</button>
+    </div>
+    <div class="roster" id="roster"></div>
+    <ol class="phases" id="phases">
+      <li>Discover</li><li>Assess</li><li>Challenge</li><li>Design</li><li>Debate</li><li>Decide</li>
+    </ol>
+    <div class="feed" id="feed"></div>
+  </aside>
+
+  <!-- Inspector -->
+  <div class="inspector hidden" id="inspector"></div>
+
+  <!-- Center bottom actions -->
+  <div class="dock">
+    <div class="caption hidden" id="caption"></div>
+    <div class="dock-buttons">
+      <button class="rebuild" id="btnRebuild"><span class="rb-glow"></span><span class="rb-icon">✦</span><span class="rb-text">Rebuild Ethically</span></button>
+      <button class="ghost compare" id="btnCompare" disabled>Before / after</button>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <span class="ev verified">Verified fact</span>
+    <span class="ev suspected">Suspected risk</span>
+    <span class="ev missing">Missing evidence</span>
+    <span class="ev simulated">Simulated outcome</span>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal hidden" id="modal"><div class="modal-card" role="dialog" aria-modal="true"><button class="close" data-close>×</button><div class="modal-body" id="modalBody"></div></div></div>
+
+  <!-- Intro -->
+  <div class="intro" id="intro">
+    <div class="intro-card">
+      <div class="logo big"><span></span></div>
+      <p class="eyebrow">ETHOS · Ethical decision-making laboratory</p>
+      <h1>Every battery has a story.</h1>
+      <p class="lede">Behind a phone battery is a chain of mines, refiners, factories and ports, and the people who live and work along it. In this lab, six AI agents with competing objectives debate how one electronics company should source its batteries.</p>
+      <div class="intro-grid">
+        <div><b>Real evidence</b><span>Facts come from the ILO and U.S. Department of Labor, at country and sector level.</span></div>
+        <div><b>Fictional chain</b><span>Lumen Devices and every supplier, site and person shown are invented.</span></div>
+        <div><b>Simulated outcomes</b><span>Scores come from an illustrative model. They are not findings.</span></div>
+      </div>
+      <div class="intro-actions">
+        <button class="rebuild small" id="btnStart"><span class="rb-glow"></span><span class="rb-text">Enter the digital twin</span></button>
+        <button class="ghost" id="btnStartDemo">▶ Start 3-minute guided demo</button>
+      </div>
+    </div>
+  </div>
+
+  <noscript><p class="noscript">ETHOS needs JavaScript and WebGL.</p></noscript>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

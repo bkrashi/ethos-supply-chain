@@ -1,111 +1,118 @@
-# ETHOS · Intelligence for Good
+# ETHOS · The Supply Chain of Tomorrow
 
-**Every product has a past. We can change its future.**
+**An interactive 3D digital twin where six AI agents with competing objectives debate how a company should source batteries without human-rights abuses or environmental harm, while staying commercially viable.**
 
-ETHOS is an interactive documentary about where the cobalt in a phone battery comes from, and what a company could do differently. It follows one real, documented trail from an industrial mine in DR Congo, shows exactly where the evidence runs out, and lets a council of six AI agents argue over a better sourcing strategy, all of it marked for human review.
+▶ **Live demo:** https://bkrashi.github.io/ethos-supply-chain/
 
-▶ **Live:** https://bkrashi.github.io/ethos-supply-chain/
+ETHOS combines a futuristic command center, a miniature explorable world and an ethical decision-making lab. It is built for a **three-minute classroom demonstration**.
 
-## The story (about three minutes)
+---
 
-| Chapter | What happens |
+## The scenario
+
+**Lumen Devices** (fictional) needs lithium-ion battery packs for its phones and laptops. Its original brief is the lowest price, a six-week delivery window, and paperwork only from direct suppliers.
+
+The digital twin shows the chain behind that brief: artisanal and industrial cobalt mines, a mining village, a refiner, a cell gigafactory, an export port, pack assembly, the brand's HQ and (after the rebuild) a closed-loop recycling hub.
+
+### What you can do
+
+| Interaction | What happens |
 |---|---|
-| **1 · The Product** | Rotate an exploded 3D phone, tap parts and see their materials. The battery leads to cobalt. |
-| **2 · The Hidden Journey** | A globe traces Tenke Fungurume (TFM) → IXM → … Solid lines are documented. Dashed lines are unknown, and unknown stops float off the map because their location is not known. |
-| **3 · The Intervention** | Pick a priority (lowest cost, fastest delivery or responsible sourcing) and press **Change the Future**. Six agents activate around a shared evidence store, pass evidence IDs and challenge each other. |
-| **4 · The Future** | Before and after: concrete actions, illustrative commercial implications, what is still unknown, and what must be verified. No ethics score. |
+| **Adjust four levers**: cost pressure, delivery deadline, traceability requirement, worker-protection investment | Risk halos change colour, refinery smoke thickens or clears, the river turns brown or blue, the "blind spot" fog lifts as traceability rises, workers get helmets, village windows light up, freight speeds up under deadline pressure. |
+| **Click any node** | The inspector shows the node's simulated risk, what each agent sees there, and the linked evidence cards. |
+| **Watch the agent council** | Agents react live to every slider change. They post findings, challenge each other and cite evidence. |
+| **Press ✦ Rebuild Ethically** | A six-phase workflow (Discover → Assess → Challenge → Design → Debate → Decide). The agents compare three strategies, vote against their own objectives, record dissent, and rebuild the twin. |
+| **Before / after** | A side-by-side comparison of the original and rebuilt strategies, including what is **still unknown**. |
+| **Evidence locker** | Every evidence card, grouped by type. |
+| **▶ Guided demo** | A narrated, roughly three-minute tour for presenting in class. |
 
-**Analyst mode** (top right) contains the evidence store, the case graph, a company search, the agent-run transcripts, the original **Scenario Lab** digital twin (`/lab/`) and the sources and licensing notes.
+### The six agents
 
-**Presentation mode:** press **Present** or add `?present`. It runs full screen with minimal chrome. ← → move between chapters, Space continues (and starts the council in Chapter 3), **R** resets, Esc exits. Each chapter plays a short curated sequence automatically.
-
-## Evidence classes
-
-Each class has one colour and one icon everywhere it appears:
-
-| | Class | Meaning |
-|---|---|---|
-| ● | **Documented** | A primary or authoritative public document states it (CMOC filings, U.S. DOL, ILO, IEA policy database), or licensed trade data shows it. |
-| ▲ | **Risk indicator** | A list or screening method flags a risk. Not a finding of abuse. |
-| ◇ | **Inference** | A reasoned conclusion. It can be wrong, and one was corrected during the agent run. |
-| ○ | **Missing** | Something a responsible buyer needs but does not have. |
-| ⬡ | **Simulated** | Agent decisions and commercial implications. Illustrative, and they need human review. |
-
-**What ETHOS does not claim:** that TFM's cobalt is in any particular phone, or that any abuse occurred at any named company. Trade and ownership links are not presented as proof of forced or child labour.
-
-## What is real, what is recorded, what is simulated
-
-| Feature | Status |
+| Agent | Objective |
 |---|---|
-| Curated case `data/case-tfm.json` | **Cached real data.** Built 23 Nov 2026 from a Sayari MCP investigation plus public sources. Public statements cite public documents. |
-| Sayari records | **Reviewed, not republished.** Sayari's terms restrict use to what is expressly authorised, so raw records, IDs and counts stay in a local, git-ignored cache (`data/private/`). The only Sayari-derived items in the public build are T1 and K2. They give a qualitative summary and a paraphrased risk definition, with no records attached. Confirm with Sayari before publishing more. |
-| Agent council (Chapter 3) | **Recorded model-driven run.** Eight independent Claude Opus 5.5 instances across four rounds: 3 in parallel, then 1, then 1, then 3 in parallel. All read the same evidence store, and their outputs are stored verbatim in `data/council/`. One inference (I2) was withdrawn after the Human Rights agent challenged it. The browser replays this run; it is not generated on page load. |
-| Live council and live company search | **Built, not yet deployed.** Requires the Worker below. If it is missing or fails, ETHOS falls back to the recorded run and the curated case, and it says so. |
-| Scenario Lab (`/lab/`) | **Simulation.** A fictional company and an illustrative model. |
+| ◆ Procurement | Cost, continuity and delivery |
+| ✚ Human Rights | Prevent child and forced labour, grounded in ILO standards |
+| ❋ Environment | Water, tailings, emissions |
+| ◎ Investigation | Map the chain, find blind spots, classify every claim |
+| ⬢ Compliance | Due diligence, disclosure, import-control exposure |
+| ✦ Solutions | Synthesise a strategy all agents can accept |
 
-## Architecture
+---
 
-```
-index.html, css/ethos.css        Story Mode shell and design system (5 brand colours, Fraunces + Inter)
-js/app.js                        Chapters, analyst mode, presentation mode, council replay
-js/v2/phone.js                   Chapter 1: Three.js exploded phone (one renderer shared with the hero)
-js/v2/globe.js                   Chapter 2: dotted globe (Natural Earth via world-atlas), documented and unknown arcs
-js/v2/council.js                 Chapter 3: agent network (SVG) and timeline builder
-js/v2/api.js                     Client for the optional backend (no secrets in the browser)
-data/case-tfm.json               Shared evidence store: nodes, edges, evidence with provenance and retrieval dates
-data/council/*.json              Recorded agent outputs, round by round, plus run metadata
-worker/                          Cloudflare Worker: Sayari + Anthropic, server-side only
-lab/                             The original ETHOS digital twin (v1), preserved
-```
+## Evidence integrity
 
-## Enabling live data (optional)
+ETHOS strictly separates four kinds of information. Each has its own colour throughout the interface.
 
-The site is static (GitHub Pages). Live features need the Worker in `worker/`, which keeps every credential server-side.
+| Type | Meaning |
+|---|---|
+| 🟩 **Verified fact** | Published by the **ILO** or the **U.S. Department of Labor**, at country or sector level, with a link. |
+| 🟧 **Suspected risk** | An *inference* about a **fictional** supplier, drawn from public sector evidence. Never a finding. |
+| 🟪 **Missing evidence** | Information a responsible buyer would need but does not have. |
+| 🟦 **Simulated outcome** | Output of the illustrative model in [`js/model.js`](js/model.js). Not a measurement or prediction. |
+
+**Ground rules**
+- Lumen Devices and every supplier, site, village and person in the app are **fictional**.
+- No evidence is invented about real suppliers or workers. Verified facts are never attributed to a fictional supplier.
+- Simulated risk scores are always labelled as simulated, and they show an uncertainty band that widens when traceability is low.
+
+**Sources used** (see [`js/evidence.js`](js/evidence.js))
+- U.S. DOL ILAB, [Lithium-ion batteries supply chain](https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods/supply-chains/lithium-ion-batteries): cobalt ore from the DRC on the List of Goods since 2009; DRC supplies over 70% of world cobalt; child labour in artisanal mines.
+- U.S. DOL ILAB, [List of Goods Produced by Child Labor or Forced Labor](https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods).
+- U.S. DOL ILAB, [Findings on the Worst Forms of Child Labor: DRC](https://www.dol.gov/agencies/ilab/resources/reports/child-labor/congo-democratic-republic-drc).
+- ILO & UNICEF, [Child Labour: Global Estimates 2024](https://www.ilo.org/publications/major-publications/child-labour-global-estimates-2024-trends-and-road-forward): 138 million children in child labour, 54 million in hazardous work.
+- ILO, Walk Free & IOM, [Global Estimates of Modern Slavery (2022)](https://www.ilo.org/publications/global-estimates-modern-slavery-forced-labour-and-forced-marriage-1): 27.6 million in forced labour.
+- ILO [Convention No. 182](https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C182) and [ILO Indicators of Forced Labour](https://www.ilo.org/publications/ilo-indicators-forced-labour).
+
+---
+
+## Running it
+
+No build step and no dependencies. Three.js loads from a CDN through an import map.
 
 ```bash
-cd worker
-npx wrangler secret put SAYARI_CLIENT_ID
-npx wrangler secret put SAYARI_CLIENT_SECRET
-npx wrangler secret put ANTHROPIC_API_KEY
-npx wrangler secret put ACCESS_CODE          # presenter code, typed in the browser at runtime
-npx wrangler deploy
+git clone https://github.com/bkrashi/ethos-supply-chain.git
+cd ethos-supply-chain
+python3 -m http.server 8000      # or any static server
+open http://localhost:8000
 ```
 
-Then open `https://bkrashi.github.io/ethos-supply-chain/?api=https://ethos-api.<you>.workers.dev`.
+**Presenter shortcuts:** `?demo` starts the guided demo, `?skipintro` skips the title card, `?rebuild` runs the council immediately, `?compare` opens the before/after view, `?inspect=asm` opens a node.
 
-**Worker safeguards:**
-- Only three fixed routes. It is not a general proxy.
-- An origin allowlist.
-- A presenter access code, compared in constant time.
-- Per-IP rate limits: 20 searches and 2 council runs per minute.
-- Input validation, and trimmed responses with `no-store` caching.
-- Credentials are never echoed back.
+---
 
-*The Worker has not been deployed or tested against live Sayari or Anthropic endpoints from this repository, because no credentials were configured.*
+## Architecture: simulated now, real agents later
 
-## Running locally
+```
+index.html ─ css/styles.css
+js/
+  main.js            UI controller: sliders, metrics, council feed, inspector, modals, guided demo
+  scene.js           Three.js digital twin (procedural models, flows, fog, bloom, labels, camera flights)
+  model.js           Illustrative simulation model (transparent equations)
+  evidence.js        Evidence base, typed as verified / suspected / missing / simulated
+  agents/agents.js   Six agent definitions: objective, metric, system prompt
+  agents/runtime.js  AgentCouncil + Provider interface
+                       ├─ SimulatedProvider (default): scripted, state-aware deliberation
+                       └─ RemoteProvider: calls an HTTP endpoint, falls back to simulation on error
+server/agent-proxy.mjs  Optional Node proxy that answers as real LLM agents
+```
+
+The UI only talks to `AgentCouncil`, which streams typed events (`message`, `phase`, `options`, `votes`, `apply`, `done`) from a **provider**. To switch to live agents:
 
 ```bash
-python3 -m http.server 8000   # then open http://localhost:8000
+ANTHROPIC_API_KEY=sk-... node server/agent-proxy.mjs      # Node 18+
+open "http://localhost:8000/?agents=http://localhost:8787"
 ```
 
-URL flags:
-- `?present` starts presentation mode.
-- `?analyst` opens Analyst mode.
-- `#journey` jumps to a chapter.
-- `?run=0.5#intervention` runs the council at speed.
-- `?nomotion` turns off animation, for screenshots.
+The badge in the top bar changes from **SIMULATION** to **LIVE AGENTS**. Every agent's system prompt carries the same evidence guardrails. The API key stays on the server.
 
-## Classroom demo (3 minutes)
+---
 
-1. **0:00 Prologue.** Read the headline aloud. Press → or Space.
-2. **0:15 The Product.** The battery highlights automatically. *"Cobalt. Where does it come from?"*
-3. **0:40 The Hidden Journey.** The globe visits TFM, then IXM, then the cold trail. Point at the dashed lines: *"This is what nobody can see."*
-4. **1:25 The Intervention.** Choose a priority with the class, then press Space. Point out the Human Rights agent correcting the Investigation agent, and Procurement pushing back.
-5. **2:25 The Future.** Scroll through the actions, then **Still uncertain**, then **Requires human review**. Press R to reset.
+## Limitations
 
-## Sources
+- The model is deliberately simple and is **not calibrated** to real data. Use it to discuss direction and trade-offs, not magnitudes.
+- Country-level evidence describes risk in a region. It cannot tell you what happens at any particular site; only on-site verification can.
+- The "rebuild" strategy is one defensible option, not the answer. Encourage students to argue for others.
 
-U.S. DOL ILAB ([batteries](https://www.dol.gov/agencies/ilab/reports/child-labor/list-of-goods/supply-chains/lithium-ion-batteries)), ILO & UNICEF ([Child Labour 2024](https://www.ilo.org/publications/major-publications/child-labour-global-estimates-2024-trends-and-road-forward)), CMOC ([TFM](https://en.cmoc.com/html/Business/Congo-Cu-Co/), [IXM](https://en.cmoc.com/html/Business/IXM/)), IEA Policies Database ([ARECOMS quotas](https://www.iea.org/policies/29138-drc-arecoms-decision-no-0042025-cobalt-quota-system)), Natural Earth (via world-atlas), Sayari (licensed; not redistributed).
+## License
 
-MIT licence (code). Third-party data remains subject to its own terms.
+MIT
